@@ -1,0 +1,45 @@
+//https://lightoj.com/problem/triangle-partitioning
+
+
+#include<bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+#define optimize() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+#define fraction() cout.unsetf(ios::floatfield); cout.precision(10); cout.setf(ios::fixed,ios::floatfield);
+int main()
+{
+    optimize();
+    int t;
+    cin>>t;
+    for(int tc=1;tc<=t;tc++)
+    {
+        double ab,ac,bc,R;
+        cin>>ab>>ac>>bc>>R;
+
+        double l = 0,r = ab;
+        for(int i=0;i<100;i++)
+        {
+            double ad = (l+r)/2.0;
+
+            double x,ae,de,periABC,periADE,areaABC,areaADE,areaTRAP;
+
+            x = ad/ab;
+            ae = ac*x;
+            de = bc*x;
+            periABC = (ab+bc+ac)/2.0;
+            periADE = (ad + ae + de)/2.0;
+
+            areaABC = sqrt(periABC*(periABC -ab)*(periABC-bc) *(periABC -ac));
+            areaADE = sqrt(periADE*(periADE -ad)*(periADE-ae) *(periADE -de));
+
+            areaTRAP = areaABC - areaADE;
+
+            if(R<(areaADE/areaTRAP)) r = ad;
+            else l =ad;
+        }
+        fraction();
+        cout<<"Case "<<tc<<": "<<l<<endl;
+    }
+
+    return 0;
+}
